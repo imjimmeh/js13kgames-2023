@@ -23,6 +23,10 @@ jobs:
       - name: Test
         run: npm test
 
+      - name: Zip
+        if: success()
+        run: zip -r build.zip build/
+
       - name: Release artefact
         if: success()
         uses: actions/upload-artifact@v3
