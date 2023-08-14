@@ -23,6 +23,6 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: true
-          title: format('Development Build {0}'+, ${{ GITHUB_RUN_ID }})
+          title: format('Development Build {0}'+, ${{ github.run_id }})
           files: |
             ./build/*
