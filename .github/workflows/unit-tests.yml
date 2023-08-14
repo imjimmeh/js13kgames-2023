@@ -2,7 +2,7 @@ name: Build, Test, Code Coverage
 
 on:
   pull_request:
-    branches: [development]
+    branches: [development, main]
 
 jobs:
   build:
