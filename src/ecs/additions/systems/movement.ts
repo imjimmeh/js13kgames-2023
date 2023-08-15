@@ -1,13 +1,18 @@
 import { IEngine } from "../../core/engine";
 import { Entity } from "../../core/entity";
 import { System } from "../../core/system";
+import {
+  addVector,
+  approxZeroVector,
+  lerpVector,
+} from "../../helpers/maths-vectors";
 import { Movement } from "../components/movement";
-import { Position } from "../components/position";
+import { Position, PositionName } from "../components/position";
 
 export class MovementSystem extends System {
   accepts(entity: Entity): boolean {
     return (
-      entity.components.has("Position") && entity.components.has("Movement")
+      entity.components.has(PositionName) && entity.components.has("Movement")
     );
   }
 
@@ -15,12 +20,27 @@ export class MovementSystem extends System {
 
   update({ entities }: IEngine): void {
     for (const entity of this.getAcceptedEntities(entities)) {
-      const position = entity.components.get<Position>("Position")!;
+      const position = entity.components.get<Position>(PositionName)!;
       const movement = entity.components.get<Movement>("Movement")!;
 
-      //TODO: Calculate actual speed and use that
-      position.x += movement.vector.x;
-      position.y += movement.vector.y;
+      console.log(movement);
+
+      if (approxZeroVector(movement.vector)) {
+        movement.speed.x = 0;
+        movement.speed.y = 0;
+      } else {
+        const newSpeed = lerpVector(
+          movement.speed,
+          addVector(movement.speed, movement.vector),
+          0.75
+        );
+
+        movement.speed.x = newSpeed.x;
+        movement.speed.y = newSpeed.y;
+      }
+
+      position.x += movement.speed.x;
+      position.y += movement.speed.y;
     }
   }
 }

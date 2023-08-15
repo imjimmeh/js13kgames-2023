@@ -3,12 +3,12 @@ import { Entity } from "../../core/entity";
 import { instance } from "../../core/renderer";
 import { System } from "../../core/system";
 import { Colour } from "../components/colour";
-import { Position } from "../components/position";
+import { Position, PositionName } from "../components/position";
 import { Size } from "../components/size";
 
 const shapeRendererUpdate = (entity: Entity): void => {
   const size = entity.components.get<Size>("Size");
-  const position = entity.components.get<Position>("Position");
+  const position = entity.components.get<Position>(PositionName);
   const colour = entity.components.get<Colour>("Colour");
 
   instance.context.fillStyle = colour!.toRgb();
@@ -25,7 +25,7 @@ export class RendererSystem extends System {
   accepts(entity: Entity): boolean {
     return (
       entity.components.has("Size") &&
-      entity.components.has("Position") &&
+      entity.components.has(PositionName) &&
       entity.components.has("Colour")
     );
   }
