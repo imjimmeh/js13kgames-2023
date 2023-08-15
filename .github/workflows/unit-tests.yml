@@ -32,7 +32,7 @@ jobs:
         if: success()
         run: zip -r build.zip build/
 
-      - name: Release artefact
+      - name: Release artifact
         if: success()
         uses: actions/upload-artifact@v3
         with:
