@@ -17,9 +17,7 @@ jobs:
         uses: actions/setup-node@v3
 
       - run: npm install
-      - run: npm install
 
-      - run: npm run publish
       - run: npm run publish
 
       - name: Zip
@@ -89,8 +87,8 @@ jobs:
         with:
           name: build
 
-      - uses: actions/github-script@v3
-        name: Comment with file size
+      - name: Release
+        uses: softprops/action-gh-release@v1
         with:
           files: |
             build.zip
