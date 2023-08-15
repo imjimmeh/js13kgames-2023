@@ -8,6 +8,8 @@ import {
 } from "../../helpers/maths-vectors";
 import { Vector } from "./position";
 
+export const MovementName = "Movement";
+
 export class Movement extends Component {
   vector: Vector;
   acceleration: Vector = { x: 0, y: 0 };
@@ -15,7 +17,7 @@ export class Movement extends Component {
   maxSpeed: number;
 
   constructor({ vector, maxSpeed }: Partial<Movement>) {
-    super({ name: "Movement" });
+    super({ name: MovementName });
     this.vector = vector ?? { x: 0, y: 0 };
     this.maxSpeed = maxSpeed ?? 2;
   }
@@ -58,7 +60,5 @@ export class Movement extends Component {
     } else if (this.velocity.y < negativeMaxSpeed) {
       this.velocity.y = negativeMaxSpeed;
     }
-
-    console.log(this.velocity, this.acceleration, this.vector);
   }
 }

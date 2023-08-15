@@ -5,7 +5,7 @@ import {
   ControlledBy,
   ControlledByComponent,
 } from "../components/controlled-by";
-import { Movement } from "../components/movement";
+import { Movement, MovementName } from "../components/movement";
 
 export class InputSystem extends System {
   keyStates: Map<string, KeyState> = new Map<string, KeyState>();
@@ -25,7 +25,7 @@ export class InputSystem extends System {
 
     return (
       component.controlledBy == ControlledBy.Player &&
-      entity.components.has("Movement")
+      entity.components.has(MovementName)
     );
   }
 
@@ -45,7 +45,7 @@ export class InputSystem extends System {
     const yDirection = this.getAxisVector("ArrowUp", "ArrowDown");
 
     for (const entity of this.getAcceptedEntities(entities)) {
-      const movement = entity.components.get<Movement>("Movement");
+      const movement = entity.components.get<Movement>(MovementName);
       movement!.vector.y = yDirection;
       movement!.vector.x = xDirection;
     }

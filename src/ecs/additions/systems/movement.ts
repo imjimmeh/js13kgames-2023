@@ -6,13 +6,13 @@ import {
   approxZeroVector,
   lerpVector,
 } from "../../helpers/maths-vectors";
-import { Movement } from "../components/movement";
+import { Movement, MovementName } from "../components/movement";
 import { Position, PositionName } from "../components/position";
 
 export class MovementSystem extends System {
   accepts(entity: Entity): boolean {
     return (
-      entity.components.has(PositionName) && entity.components.has("Movement")
+      entity.components.has(PositionName) && entity.components.has(MovementName)
     );
   }
 
@@ -21,7 +21,7 @@ export class MovementSystem extends System {
   update({ entities }: IEngine): void {
     for (const entity of this.getAcceptedEntities(entities)) {
       const position = entity.components.get<Position>(PositionName)!;
-      const movement = entity.components.get<Movement>("Movement")!;
+      const movement = entity.components.get<Movement>(MovementName)!;
 
       movement.updateSpeed();
 
