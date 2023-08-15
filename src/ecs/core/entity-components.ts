@@ -7,7 +7,7 @@ export class Components {
     this.components.set(component.name, component);
   }
 
-  get<T>(name: string): T | undefined {
+  get<T extends Component>(name: string): T | undefined {
     const component = this.components.get(name);
     if (!component) return undefined;
 

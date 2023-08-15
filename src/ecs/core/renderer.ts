@@ -19,6 +19,11 @@ export class Renderer {
     return this._context;
   }
 
+  init() {
+    this._canvas.width = window.innerWidth;
+    this._canvas.height = window.innerHeight;
+  }
+
   clearCanvas() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }

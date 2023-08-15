@@ -1,4 +1,5 @@
 import { Entity } from "./entity";
+import { instance } from "./renderer";
 import { System } from "./system";
 
 export class Engine implements IEngine {
@@ -10,6 +11,8 @@ export class Engine implements IEngine {
   }
 
   init() {
+    instance.init();
+
     for (const entity of this.entities) {
       entity.init();
     }
