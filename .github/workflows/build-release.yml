@@ -14,15 +14,36 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
 
-      - run: npm ci
+      - run: npm install
 
-      - run: npm run build --if-present
+      - run: npm run publish
 
       - name: Zip
-        run: zip -r build.zip build/
+        run: |
+          zip -r build.zip build/g.js build/index.html
 
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
             build.zip
+
+      - name: Get size of output
+        run: |
+          build_file=$(ls | grep 'build.zip')
+          as_array=($build_file)
+          echo($as_array)
+          file_size=${as_array[3]}
+          echo "FILE_SIZE=${file_size}" >> "$GITHUB_ENV"
+
+      - uses: actions/github-script@v3
+        name: Comment with file size
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Total build size is ${env.FILE_SIZE}'
+            })
