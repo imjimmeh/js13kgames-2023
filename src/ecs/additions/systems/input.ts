@@ -41,16 +41,30 @@ export class InputSystem extends System {
       }
     }
 
-    const up = this.keyStates.get("ArrowUp") ?? KeyState.Released;
-    const down = this.keyStates.get("ArrowDown") ?? KeyState.Released;
-
-    const yDirection =
-      (up != KeyState.Released ? 1 : 0) + (down != KeyState.Released ? -1 : 0);
+    const xDirection = this.getAxisVector("ArrowLeft", "ArrowRight");
+    const yDirection = this.getAxisVector("ArrowUp", "ArrowDown");
 
     for (const entity of this.getAcceptedEntities(entities)) {
       const movement = entity.components.get<Movement>("Movement");
       movement!.vector.y = yDirection;
+      movement!.vector.x = xDirection;
     }
+  }
+
+  private getAxisVector(positiveKey: string, negativeKey: string) {
+    const up =
+      (this.keyStates.get(positiveKey) ?? KeyState.Released) !=
+      KeyState.Released
+        ? 1
+        : 0;
+
+    const down =
+      (this.keyStates.get(negativeKey) ?? KeyState.Released) !=
+      KeyState.Released
+        ? -1
+        : 0;
+
+    return up + down;
   }
 
   onKeyDown(event: KeyboardEvent) {
