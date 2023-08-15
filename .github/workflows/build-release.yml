@@ -28,7 +28,7 @@ jobs:
         run: |
           build_file=$(ls | grep 'build.zip')
           as_array=($build_file)
-          echo($as_array)
+          echo $as_array
           file_size=${as_array[3]}
           echo "FILE_SIZE=${file_size}" >> "$GITHUB_ENV"
 
