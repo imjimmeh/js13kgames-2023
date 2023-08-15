@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { Entity } from "../../../src/ecs/core/entity";
 import { Engine } from "../../../src/ecs/core/engine";
 jest.mock("../../../src/ecs/core/entity");
@@ -6,6 +10,8 @@ let engine;
 
 beforeEach(() => {
   Entity.mockClear();
+
+  document.body.innerHTML = "<canvas></canvas>";
 
   engine = new Engine();
 
