@@ -29,4 +29,12 @@ export class Renderer {
   }
 }
 
-export const instance = new Renderer();
+let _instance: Renderer | null = null;
+
+export const instance = (): Renderer => {
+  if (!_instance) {
+    _instance = new Renderer();
+  }
+
+  return _instance;
+};

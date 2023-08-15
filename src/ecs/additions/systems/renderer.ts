@@ -11,9 +11,9 @@ const shapeRendererUpdate = (entity: Entity): void => {
   const position = entity.components.get<Position>(PositionName);
   const colour = entity.components.get<Colour>("Colour");
 
-  instance.context.fillStyle = colour!.toRgb();
+  instance().context.fillStyle = colour!.toRgb();
 
-  instance.context.fillRect(
+  instance().context.fillRect(
     position!.x,
     position!.y,
     size!.width,

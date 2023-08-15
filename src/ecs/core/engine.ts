@@ -11,7 +11,7 @@ export class Engine implements IEngine {
   }
 
   init() {
-    instance.init();
+    instance().init();
 
     for (const entity of this.entities) {
       entity.init();

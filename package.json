@@ -9,13 +9,16 @@
   "scripts": {
     "build": "node esbuild.config.mjs",
     "lint": "eslint src/",
-    "test": "jest"
+    "test": "jest",
+    "roadroller": "roadroller build/game.js -o build/g.js",
+    "publish": "npm run lint && npm run build && npm run roadroller"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "esbuild": "0.19.1",
+    "fs": "^0.0.1-security",
     "ts-node": "^10.9.1"
   },
   "devDependencies": {
@@ -26,6 +29,8 @@
     "@typescript-eslint/parser": "^6.3.0",
     "babel-jest": "^29.6.2",
     "eslint": "^8.47.0",
-    "jest": "^29.6.2"
+    "jest": "^29.6.2",
+    "jest-environment-jsdom": "^29.6.2",
+    "roadroller": "^2.1.0"
   }
 }
