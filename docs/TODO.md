@@ -13,5 +13,4 @@
 
 # Rendering
 
-- [ ] Change origin to bottom left
-    
+- [x] Change origin to bottom left

@@ -7,15 +7,17 @@ import { Position, PositionName } from "../components/position";
 import { Size } from "../components/size";
 
 const shapeRendererUpdate = (entity: Entity): void => {
-  const size = entity.components.get<Size>("Size");
-  const position = entity.components.get<Position>(PositionName);
+  const size = entity.components.get<Size>("Size")!;
+  const position = entity.components.get<Position>(PositionName)!;
   const colour = entity.components.get<Colour>("Colour");
 
-  instance().context.fillStyle = colour!.toRgb();
+  const render = instance();
+
+  render.context.fillStyle = colour!.toRgb();
 
   instance().context.fillRect(
-    position!.x,
-    position!.y,
+    position.x,
+    position.y,
     size!.width,
     size!.height
   );
@@ -33,7 +35,9 @@ export class RendererSystem extends System {
   init(): void {}
 
   update({ entities }: IEngine): void {
-    instance.clearCanvas();
+    const render = instance();
+
+    render.clearCanvas();
 
     for (const entity of this.getAcceptedEntities(entities)) {
       shapeRendererUpdate(entity);
