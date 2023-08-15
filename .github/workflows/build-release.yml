@@ -24,12 +24,6 @@ jobs:
         run: |
           zip -r build.zip build/g.js build/index.html
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            build.zip
-
       - name: Get size of output
         run: |
           build_file=$(ls | grep 'build.zip')
