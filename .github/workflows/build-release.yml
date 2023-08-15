@@ -3,6 +3,8 @@ name: Build & Release Game
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main, development]
 
 jobs:
   build:
@@ -21,6 +23,23 @@ jobs:
       - name: Zip
         run: |
           zip -r build.zip build/g.js build/index.html
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build.zip
+
+  note-file-size:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    needs: [build]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: build
 
       - name: Get size of output
         run: |
@@ -55,3 +74,21 @@ jobs:
               repo: context.repo.repo,
               body: messageBody
             })
+
+  release:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    needs: [build]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: build
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            build.zip
