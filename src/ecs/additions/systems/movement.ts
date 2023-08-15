@@ -1,11 +1,6 @@
 import { IEngine } from "../../core/engine";
 import { Entity } from "../../core/entity";
 import { System } from "../../core/system";
-import {
-  addVector,
-  approxZeroVector,
-  lerpVector,
-} from "../../helpers/maths-vectors";
 import { Movement, MovementName } from "../components/movement";
 import { Position, PositionName } from "../components/position";
 
