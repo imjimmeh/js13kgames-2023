@@ -47,7 +47,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const messageBody = `Total build size is **${{ env.FILE_SIZE }}**.
+            const messageBody = `Total build size is **${{ env.FILE_SIZE }}** bytes.
 
             ${{ env.MESSAGE }}`;
 
