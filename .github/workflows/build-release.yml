@@ -35,7 +35,7 @@ jobs:
         run: |
           max_bytes=$((13*1024))
           bytes_remaining=$((max_bytes-$file_size))
-          if [ "$bytes_remaining" -gt "9" ]; then
+          if [ "$bytes_remaining" -gt "0" ]; then
             message="We have **$bytes_remaining** bytes spare!"
           else
             message="We are **$((bytes_remaining*-1))** bytes over the limit!"
