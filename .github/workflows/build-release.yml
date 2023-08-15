@@ -14,16 +14,44 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
 
-      - run: npm ci
+      - run: npm install
 
-      - run: npm run build --if-present
+      - run: npm run publish
 
       - name: Zip
-        run: zip -r build.zip build/
+        run: |
+          zip -r build.zip build/g.js build/index.html
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
+      - name: Get size of output
+        run: |
+          build_file="$(ls -l | grep 'build.zip')"
+          as_array=($build_file)
+          file_size=${as_array[4]}
+          echo "FILE_SIZE=${file_size}" >> "$GITHUB_ENV"
+
+      - name: Build message
+        run: |
+          max_bytes=$((13*1024))
+          bytes_remaining=$((max_bytes-$file_size))
+          if [ "$bytes_remaining" -gt "0" ]; then
+            message="We have **$bytes_remaining** bytes spare!"
+          else
+            message="We are **$((bytes_remaining*-1))** bytes over the limit!"
+          fi
+          echo "MESSAGE=${message}" >> "$GITHUB_ENV"
+
+      - uses: actions/github-script@v3
+        name: Comment with file size
         with:
-          tag_name: latest
-          files: |
-            build.zip
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const messageBody = `Total build size is **${{ env.FILE_SIZE }}** bytes.
+
+            ${{ env.MESSAGE }}`;
+
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: messageBody
+            })
