@@ -10,7 +10,7 @@ export class MovementSystem extends System {
 
   init(): void {}
 
-  update({ entities, systems }: IEngine): void {
+  update({ entities }: IEngine): void {
     for (const entity of this.getAcceptedEntities(entities)) {
       const location = entity.components.get<Position>("Position")!;
       location.x += 1;

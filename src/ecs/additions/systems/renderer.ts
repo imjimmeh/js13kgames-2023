@@ -3,9 +3,8 @@ import { Entity } from "../../core/entity";
 import { instance } from "../../core/renderer";
 import { System } from "../../core/system";
 import { Colour } from "../components/colour";
-import { Position } from "../position";
-import { isRenderable } from "../queries";
-import { Size } from "../size";
+import { Position } from "../components/position";
+import { Size } from "../components/size";
 
 const shapeRendererUpdate = (entity: Entity): void => {
   const size = entity.components.get<Size>("Size");
@@ -32,7 +31,7 @@ export class RendererSystem extends System {
   }
 
   init(): void {}
-  update({ entities, systems }: IEngine): void {
+  update({ entities }: IEngine): void {
     instance.clearCanvas();
 
     for (const entity of this.getAcceptedEntities(entities)) {

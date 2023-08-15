@@ -6,6 +6,7 @@ export class Entity {
 
   init(): void {
     for (const component of this.components.all()) {
+      console.log(component);
     }
 
     console.log(`initialised`, this);
