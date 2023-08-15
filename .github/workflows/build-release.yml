@@ -3,8 +3,6 @@ name: Build & Release Game
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 jobs:
   build:
