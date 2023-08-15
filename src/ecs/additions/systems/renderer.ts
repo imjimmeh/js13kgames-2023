@@ -31,6 +31,7 @@ export class RendererSystem extends System {
   }
 
   init(): void {}
+
   update({ entities }: IEngine): void {
     instance.clearCanvas();
 

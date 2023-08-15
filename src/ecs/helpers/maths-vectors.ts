@@ -18,5 +18,19 @@ export const addVector = (a: Vector, b: Vector): Vector => {
   };
 };
 
+export const multiplyVector = (a: Vector, b: number): Vector => {
+  return {
+    x: a.x * b,
+    y: a.y * b,
+  };
+};
+
 export const approxZeroVector = ({ x, y }: Vector): boolean =>
   approxZero(x) && approxZero(y);
+
+export const clampVector = (v: Vector, min: number, max: number): Vector => {
+  return {
+    x: Math.min(Math.max(v.x, min), max),
+    y: Math.min(Math.max(v.y, min), max),
+  };
+};

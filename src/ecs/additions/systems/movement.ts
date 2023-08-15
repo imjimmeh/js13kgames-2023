@@ -23,24 +23,10 @@ export class MovementSystem extends System {
       const position = entity.components.get<Position>(PositionName)!;
       const movement = entity.components.get<Movement>("Movement")!;
 
-      console.log(movement);
+      movement.updateSpeed();
 
-      if (approxZeroVector(movement.vector)) {
-        movement.speed.x = 0;
-        movement.speed.y = 0;
-      } else {
-        const newSpeed = lerpVector(
-          movement.speed,
-          addVector(movement.speed, movement.vector),
-          0.75
-        );
-
-        movement.speed.x = newSpeed.x;
-        movement.speed.y = newSpeed.y;
-      }
-
-      position.x += movement.speed.x;
-      position.y += movement.speed.y;
+      position.x += movement.acceleration.x;
+      position.y += movement.acceleration.y;
     }
   }
 }
