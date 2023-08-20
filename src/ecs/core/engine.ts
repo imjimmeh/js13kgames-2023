@@ -29,8 +29,6 @@ export class Engine implements IEngine {
       system.update({ entities: this.entities, systems: this.systems });
     }
 
-    console.log(`ran update`);
-
     window.requestAnimationFrame(this.update);
   }
 }
