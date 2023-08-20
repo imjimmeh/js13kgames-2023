@@ -11,7 +11,6 @@
 - [x] Add speed/acceleration
 - [ ] Allow different max speeds, lerp factors, etc.
 
-# Rendering
+# Procedural Generation
 
-- [ ] Change origin to bottom left
-    
+- [ ] Generate units system 

@@ -41,7 +41,7 @@ export class InputSystem extends System {
       }
     }
 
-    const xDirection = this.getAxisVector("ArrowLeft", "ArrowRight");
+    const xDirection = this.getAxisVector("ArrowRight", "ArrowLeft");
     const yDirection = this.getAxisVector("ArrowUp", "ArrowDown");
 
     for (const entity of this.getAcceptedEntities(entities)) {

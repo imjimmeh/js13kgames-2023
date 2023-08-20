@@ -33,7 +33,7 @@ export class RendererSystem extends System {
   init(): void {}
 
   update({ entities }: IEngine): void {
-    instance.clearCanvas();
+    instance().clearCanvas();
 
     for (const entity of this.getAcceptedEntities(entities)) {
       shapeRendererUpdate(entity);
